@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.netease.easeshopping.dao.CommodityMapper">
+  <resultMap id="BaseResultMap" type="com.netease.easeshopping.model.Commodity">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="cid" jdbcType="VARCHAR" property="cid" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="picture" jdbcType="VARCHAR" property="picture" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="price" jdbcType="REAL" property="price" />
+    <result column="quantity" jdbcType="INTEGER" property="quantity" />
+    <result column="is_selled" jdbcType="INTEGER" property="isSelled" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, cid, title, remark, picture, content, price, quantity, is_selled
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from commodity
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByCid" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from commodity
+    where cid = #{cid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from commodity
+  </select>
+  <select id="selectAllByStatus" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from commodity where is_selled = #{is_selled,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from commodity
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.netease.easeshopping.model.Commodity">
+    insert into commodity (cid, title,
+      remark, picture, content, 
+      price
+      )
+    values (#{cid,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR},
+      #{remark,jdbcType=VARCHAR}, #{picture,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{price,jdbcType=REAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.netease.easeshopping.model.Commodity">
+    insert into commodity
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="cid != null">
+        cid,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="picture != null">
+        picture,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="quantity != null">
+        quantity,
+      </if>
+      <if test="isSelled != null">
+        is_selled,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="cid != null">
+        #{cid,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null">
+        #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=REAL},
+      </if>
+      <if test="quantity != null">
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="isSelled != null">
+        #{isSelled,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.netease.easeshopping.model.Commodity">
+    update commodity
+    <set>
+      <if test="cid != null">
+        cid = #{cid,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null">
+        picture = #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=REAL},
+      </if>
+      <if test="quantity != null">
+        quantity = #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="isSelled != null">
+        is_selled = #{isSelled,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.netease.easeshopping.model.Commodity">
+    update commodity
+    set cid = #{cid,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      picture = #{picture,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      price = #{price,jdbcType=REAL},
+      quantity = #{quantity,jdbcType=INTEGER},
+      is_selled = #{isSelled,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
