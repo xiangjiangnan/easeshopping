@@ -3,7 +3,7 @@
 	if(!loginForm){
 		return;
 	}
-	var userName = loginForm['userName'];
+	var username = loginForm['username'];
 	var password = loginForm['password'];
 	var isSubmiting = false;
 	var loading = new Loading();
@@ -11,12 +11,12 @@
 		init:function(){
 			loginForm.addEventListener('submit',function(e){
 				if(!isSubmiting && this.check()){
-					var value1 = userName.value;
+					var value1 = username.value;
 					var value2 = md5(password.value);
 					isSubmiting = true;
 					loading.show();
 					ajax({
-						data:{userName:value1,password:value2},
+						data:{username:value1,password:value2},
 						url:'/api/login',
 						success:function(result){
 							loading.hide();
@@ -29,7 +29,7 @@
 					});
 				}
 			}.bind(this),false);
-			[userName,password].forEach(function(item){
+			[username,password].forEach(function(item){
 				item.addEventListener('input',function(e){
 					item.classList.remove('z-err');
 				}.bind(this),false);
@@ -38,7 +38,7 @@
 		check:function(){
 			var result = true;
 			[
-				[userName,function(value){return value == ''}],
+				[username,function(value){return value == ''}],
 				[password,function(value){return value == ''}]
 			].forEach(function(item){
 				var value = item[0].value.trim();

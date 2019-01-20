@@ -21,6 +21,8 @@ public class Commodity implements Serializable {
 
     private Integer isSelled;
 
+    private Integer selledQuantity;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -93,5 +95,13 @@ public class Commodity implements Serializable {
 
     public void setIsSelled(Integer isSelled) {
         this.isSelled = isSelled;
+    }
+
+    public Integer getSelledQuantity() {
+        return selledQuantity;
+    }
+
+    public void setSelledQuantity(Integer selledQuantity) {
+        this.selledQuantity = selledQuantity;
     }
 }

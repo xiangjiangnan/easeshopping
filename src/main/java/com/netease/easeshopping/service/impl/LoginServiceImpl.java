@@ -29,7 +29,8 @@ public class LoginServiceImpl implements LoginService {
             return map;
         }
         try {
-            if (!(Md5Util.encodeByMd5(password + user.getSalt()).toLowerCase()).equals(user.getPassword())) {
+            if (!(Md5Util.encodeByMd5(password).toLowerCase()).equals(user.getPassword())) {
+            //if (!(Md5Util.encodeByMd5(password + user.getSalt()).toLowerCase()).equals(user.getPassword())) {
                 map.put("msg", "用户密码错误。");
                 return map;
             }
@@ -45,11 +46,6 @@ public class LoginServiceImpl implements LoginService {
 //        String ticket = addLoginTicket(user.getId());
 //        map.put("ticket", ticket);
         return map;
-    }
-
-    @Override
-    public void logout(){
-
     }
 
     private User selectByUsername(String username){
@@ -84,16 +80,4 @@ public class LoginServiceImpl implements LoginService {
         }
         return flag;
     }
-
-//    private String addLoginTicket(int userId) {
-//        LoginTicket ticket = loginTicketMapper.selectByPrimaryKey(userId);
-//        ticket.setUserId(userId);
-//        Date date = new Date();
-//        date.setTime(date.getTime() + 1000*3600*24);
-//        ticket.setExpired(date);
-//        ticket.setStatus(0);
-//        ticket.setTicket(UUID.randomUUID().toString().replaceAll("-", ""));
-//        loginTicketMapper.updateByPrimaryKey(ticket);
-//        return ticket.getTicket();
-//    }
 }

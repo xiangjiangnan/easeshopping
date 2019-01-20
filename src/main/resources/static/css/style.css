@@ -74,6 +74,7 @@ select.u-ipt{width:auto;padding:0;line-height:1;}
 }
 
 .v-unit{padding-right:5px;color:#999;}
+.v-unit-right{padding-left:65px;color:#999;}
 .v-value{color:#333;font-size:20px;font-weight: bold;color:#d22147;}
 .v-time{color:#666;}
 .v-load{position:fixed;z-index:99;top:0;left:0;right:0;bottom:0;}

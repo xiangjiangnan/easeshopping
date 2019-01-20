@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.netease.easeshopping.model.User;
 import com.netease.easeshopping.service.CommodityService;
 import com.netease.easeshopping.service.LoginService;
-import com.netease.easeshopping.utils.Md5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,7 +42,7 @@ public class LoginController {
      */
     @RequestMapping(path = {"/api/login"}, params = {"userName" ,"password"},  method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
-    public JSONObject login(HttpServletResponse response, @RequestParam("userName") String username,
+    public JSONObject login(HttpServletResponse response, @RequestParam("username") String username,
                  @RequestParam("password") String password, HttpSession session){
         Map<String, Object> map = null;
         JSONObject json = new JSONObject();
@@ -78,7 +77,7 @@ public class LoginController {
     public void logout(HttpSession session, HttpServletResponse response){
         session.setAttribute("user", null);
         try {
-            response.sendRedirect("/");
+            response.sendRedirect("/login");
         } catch (IOException e) {
             e.printStackTrace();
         }

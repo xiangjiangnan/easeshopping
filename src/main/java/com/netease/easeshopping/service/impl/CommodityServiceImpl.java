@@ -43,8 +43,10 @@ public class CommodityServiceImpl implements CommodityService {
     }
 
     @Override
-    public void updateCommodityStatus(Commodity commodity){
+    public void updateCommodityStatusAndNum(Commodity commodity, int num){
         commodity.setIsSelled(1);
+        commodity.setSelledQuantity(commodity.getSelledQuantity() + num);
+        commodity.setQuantity(commodity.getQuantity() - num);
         commodityMapper.updateByPrimaryKey(commodity);
     }
 

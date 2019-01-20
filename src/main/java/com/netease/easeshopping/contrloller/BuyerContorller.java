@@ -3,7 +3,6 @@ package com.netease.easeshopping.contrloller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonAnyFormatVisitor;
 import com.netease.easeshopping.model.Account;
 import com.netease.easeshopping.model.Cart;
 import com.netease.easeshopping.model.Commodity;
@@ -18,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class BuyerContorller {
@@ -83,7 +81,7 @@ public class BuyerContorller {
             int id = Integer.valueOf(jsonObject.getString("id"));
             int number = Integer.valueOf(jsonObject.getString("number"));
             Commodity commodity = commodityService.getCommodityDetailByPrimaryKey(id);//获取商品信息
-            commodityService.updateCommodityStatus(commodity);//设置商品销售状态
+            commodityService.updateCommodityStatusAndNum(commodity, number);//设置商品销售状态
             if(commodity != null)
                 buyerService.addAccount(commodity, number);
             System.out.println(id + ":" + number);

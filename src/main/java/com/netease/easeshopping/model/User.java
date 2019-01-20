@@ -6,11 +6,15 @@ import java.util.Date;
 public class User implements Serializable {
     private Integer id;
 
+    private String uid;
+
     private String username;
 
     private String password;
 
     private String salt;
+
+    private String role;
 
     private Date created;
 
@@ -22,6 +26,14 @@ public class User implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid == null ? null : uid.trim();
     }
 
     public String getUsername() {
@@ -46,6 +58,14 @@ public class User implements Serializable {
 
     public void setSalt(String salt) {
         this.salt = salt == null ? null : salt.trim();
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role == null ? null : role.trim();
     }
 
     public Date getCreated() {

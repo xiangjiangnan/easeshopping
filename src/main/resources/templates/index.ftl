@@ -56,7 +56,16 @@
                         <a href="/show?id=${commodity.id}" class="link">
                             <div class="img"><img src="${commodity.picture}" alt="${commodity.title}"></div>
                                 <h3>${commodity.title}</h3>
-                            <div class="price"><span class="v-unit">¥</span><span class="v-value">${commodity.price}</span></div>
+                            <div class="price">
+                                <span class="v-unit">¥</span><span class="v-value">${commodity.price}</span>
+                                <#if (user??)>
+                                    <#if (commodity.isSelled == 1)>
+                                        <#if (user.username == "seller")>
+                                            <span class="v-unit-right"><b>共售出：</span><span class="v-value">${commodity.selledQuantity}</b></span>
+                                        </#if>
+                                    </#if>
+                                </#if>
+                            </div>
                             <#if (user??)>
                                 <#if (commodity.isSelled == 1)>
                                     <#if (user.username == "buyer")>

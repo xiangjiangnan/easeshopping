@@ -13,7 +13,7 @@ public interface CommodityService {
     void deleteCommodityByPrimaryKey(int id);
     List<Commodity> getAllCommodities();
     List<Commodity> getAllCommoditiesByStatus(int type);
-    void updateCommodityStatus(Commodity commodity);
+    void updateCommodityStatusAndNum(Commodity commodity, int num);
     String saveImage(MultipartFile file);
     int addNewCommodity(Commodity commodity);
     Commodity getCommodityByCid(String cid);

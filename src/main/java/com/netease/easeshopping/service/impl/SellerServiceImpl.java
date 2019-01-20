@@ -7,7 +7,6 @@ import com.netease.easeshopping.service.SellerService;
 import com.netease.easeshopping.utils.UuidUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class SellerServiceImpl implements SellerService {

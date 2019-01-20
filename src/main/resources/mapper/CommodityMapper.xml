@@ -11,9 +11,10 @@
     <result column="price" jdbcType="REAL" property="price" />
     <result column="quantity" jdbcType="INTEGER" property="quantity" />
     <result column="is_selled" jdbcType="INTEGER" property="isSelled" />
+    <result column="selled_quantity" jdbcType="INTEGER" property="selledQuantity" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, cid, title, remark, picture, content, price, quantity, is_selled
+    id, cid, title, remark, picture, content, price, quantity, is_selled, selled_quantity
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -45,11 +46,11 @@
     insert into commodity (cid, title,
       remark, picture, content, 
       price
-      )
+    )
     values (#{cid,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR},
       #{remark,jdbcType=VARCHAR}, #{picture,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
       #{price,jdbcType=REAL}
-      )
+    })
   </insert>
   <insert id="insertSelective" parameterType="com.netease.easeshopping.model.Commodity">
     insert into commodity
@@ -81,6 +82,9 @@
       <if test="isSelled != null">
         is_selled,
       </if>
+      <if test="selledQuantity != null">
+        selled_quantity,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -109,6 +113,9 @@
       </if>
       <if test="isSelled != null">
         #{isSelled,jdbcType=INTEGER},
+      </if>
+      <if test="selledQuantity != null">
+        #{selledQuantity,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -139,6 +146,9 @@
       <if test="isSelled != null">
         is_selled = #{isSelled,jdbcType=INTEGER},
       </if>
+      <if test="selledQuantity != null">
+        selled_quantity = #{selledQuantity,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -151,7 +161,8 @@
       content = #{content,jdbcType=VARCHAR},
       price = #{price,jdbcType=REAL},
       quantity = #{quantity,jdbcType=INTEGER},
-      is_selled = #{isSelled,jdbcType=INTEGER}
+      is_selled = #{isSelled,jdbcType=INTEGER},
+      selled_quantity = #{selledQuantity,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

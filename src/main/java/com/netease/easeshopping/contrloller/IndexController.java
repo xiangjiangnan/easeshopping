@@ -1,7 +1,6 @@
 package com.netease.easeshopping.contrloller;
 
 
-import com.netease.easeshopping.model.Account;
 import com.netease.easeshopping.model.Commodity;
 import com.netease.easeshopping.service.BuyerService;
 import com.netease.easeshopping.service.CommodityService;
