@@ -9,6 +9,7 @@ import com.netease.easeshopping.model.Commodity;
 import com.netease.easeshopping.service.BuyerService;
 import com.netease.easeshopping.service.CommodityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -31,14 +33,17 @@ public class BuyerContorller {
      * @return 进入到首页
      * 已购买商品的展示
      */
+    @PreAuthorize("hasAuthority('BUYER')")
     @RequestMapping(path = {"/account"}, method = {RequestMethod.GET})
     public String account(Model model){
         float total = 0;
+        List<Commodity> commodities = new ArrayList<>();
         List<Account> list = buyerService.getAllAccounts();
         model.addAttribute("list", list);
         for(Account account : list){
+            Commodity commodity = commodityService.getCommodityByCid(account.getCid());
+            account.setId(commodity.getId());
             total += account.getPrice() * account.getQuantity();
-
         }
         model.addAttribute("total" , total);
         return "account/account";
@@ -49,6 +54,7 @@ public class BuyerContorller {
      * @return 进入购物车
      * 购物车商品展示
      */
+    @PreAuthorize("hasAuthority('BUYER')")
     @RequestMapping(path = {"/settleAccount"}, method = {RequestMethod.GET})
     public String selectAccount(Model model){
         List<Cart> list = buyerService.getAllCartAccounts();
@@ -62,6 +68,7 @@ public class BuyerContorller {
      * @return 购买成功返回json
      * 实现买家购买商品功能
      */
+    @PreAuthorize("hasAuthority('BUYER')")
     @RequestMapping(path = {"/api/buy"}, method = {RequestMethod.POST})
     @ResponseBody
     public JSONObject buy(Model model, HttpServletRequest request){

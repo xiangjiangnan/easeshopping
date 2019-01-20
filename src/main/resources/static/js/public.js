@@ -60,10 +60,8 @@
 		            xhr.onload = function () {
 		            	  if (xhr.status === 200) {
 		            	    alert("文件上传成功");
-		            	    //var o = JSON.parse(xhr.responseText);
-		            	    var o = xhr.responseText;
-		            	    //imageUrl = o && o.result;
-		            	    imageUrl = o;
+		            	    var o = JSON.parse(xhr.responseText);
+		            	    imageUrl = o && o.result;
 		            	    image.value = imageUrl;
 		            	    imgpre.src = imageUrl;
 		            	  } else {

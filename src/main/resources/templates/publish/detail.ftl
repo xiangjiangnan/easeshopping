@@ -45,8 +45,7 @@
                 <span class="v-unit">¥</span><span class="v-value">${commodity.price}</span>
             </div>
             <div class="num">购买数量：<span id="plusNum" class="lessNum"><a>-</a></span><span class="totalNum" id="allNum">
-                <#if (commodity.isSelled == 1)>
-                    ${totalNum}
+                <#if (commodity.isSelled == 1)>${totalNum}
                 </#if>
                 </span><span id="addNum" class="moreNum"><a>+</a></span></div>
             <div class="oprt f-cb">

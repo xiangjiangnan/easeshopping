@@ -50,7 +50,7 @@
     values (#{cid,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR},
       #{remark,jdbcType=VARCHAR}, #{picture,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
       #{price,jdbcType=REAL}
-    })
+    )
   </insert>
   <insert id="insertSelective" parameterType="com.netease.easeshopping.model.Commodity">
     insert into commodity

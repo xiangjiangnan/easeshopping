@@ -17,7 +17,7 @@ public class AuthorizationFailHandler extends SimpleUrlAuthenticationFailureHand
         JSONObject json = new JSONObject();
         json.put("code", 400);
         json.put("result", "failure");
-        json.put("message", "check failed");
+        json.put("message", "登录失败");
         response.setContentType("application/json;charset=UTF-8");
         response.getWriter().write(json.toString());
     }

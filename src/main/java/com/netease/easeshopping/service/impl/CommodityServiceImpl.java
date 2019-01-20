@@ -67,7 +67,6 @@ public class CommodityServiceImpl implements CommodityService {
     @Override
     public void deleteCommodityByPrimaryKey(int id){
         int  flag = commodityMapper.deleteByPrimaryKey(id);
-        System.out.println(flag);
     }
     @Override
     public List<Commodity> getAllCommodities(){

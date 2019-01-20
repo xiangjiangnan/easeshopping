@@ -27,8 +27,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/", "/show", "/login").permitAll()
-                .antMatchers("/account", "/settleAccount", "/api/buy").hasAuthority("BUYER")
-                .antMatchers("/public", "/publicSubmit", "/api/upload", "/edit", "/api/delete").hasAuthority("SELLER")
+                //.antMatchers("/account", "/settleAccount", "/api/buy").hasAuthority("BUYER")
+                //.antMatchers("/public", "/publicSubmit", "/api/upload", "/edit", "/api/delete").hasAuthority("SELLER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

@@ -6,6 +6,7 @@ import com.netease.easeshopping.service.CommodityService;
 import com.netease.easeshopping.service.SellerService;
 import com.netease.easeshopping.utils.BaseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +31,7 @@ public class SellerController {
     /**
      * @return 进入到发布页面
      */
+    @PreAuthorize("hasAuthority('SELLER')")
     @RequestMapping(path={"/public"}, method = {RequestMethod.GET,RequestMethod.POST})
     public String publish(HttpSession session){
         session.setAttribute("commodity", null);
@@ -46,6 +48,7 @@ public class SellerController {
      * @return 返回到发布状态页面
      * 实现第一次发布和对发布的商品再次进行修改
      */
+    @PreAuthorize("hasAuthority('SELLER')")
     @RequestMapping(path={"/publicSubmit"}, method = {RequestMethod.POST})
     public String submit(HttpSession session, @RequestParam("title") String title,
                          @RequestParam("summary") String summary, @RequestParam("image") String image,
@@ -69,12 +72,14 @@ public class SellerController {
      * @param file
      * 用于接收上传的图片，并存储在本地磁盘
      */
+    @PreAuthorize("hasAuthority('SELLER')")
     @RequestMapping(path={"/api/upload"}, method = {RequestMethod.POST})
     @ResponseBody
-    public String upload(@RequestParam("file") MultipartFile file){
+    public JSONObject upload(@RequestParam("file") MultipartFile file){
         String fileName = commodityService.saveImage(file);
-
-        return fileName;
+        JSONObject json = new JSONObject();
+        json.put("result", fileName);
+        return json;
     }
 
     /**
@@ -83,6 +88,7 @@ public class SellerController {
      * @return 返回到发布页面
      * 将当前商品的信息传递到session域
      */
+    @PreAuthorize("hasAuthority('SELLER')")
     @RequestMapping(path={"/edit"}, method = {RequestMethod.GET})
     public String edit(HttpSession session, @RequestParam("id") int id) {
         Commodity commodity = commodityService.getCommodityDetailByPrimaryKey(id);
@@ -97,6 +103,7 @@ public class SellerController {
      * @return 返回删除后的json消息
      * 当删除未购买的商品时，如果含有本地上传的图片，要删除图片和数据库记录
      */
+    @PreAuthorize("hasAuthority('SELLER')")
     @RequestMapping(path={"/api/delete"}, method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
     public JSONObject delete(Model model, @RequestParam("id") int id, HttpServletResponse response) {
@@ -106,7 +113,6 @@ public class SellerController {
         if(location > 0 ){
             String fileExt = url.substring(location + 1).toLowerCase();
             if(BaseUtil.isFileAllowed(fileExt)) {
-                System.out.println(url.substring(location + 1));
                 File file = new File(BaseUtil.IMAGE_DIR + url);
                 if (file.exists() && file.isFile()) {
                     file.delete();

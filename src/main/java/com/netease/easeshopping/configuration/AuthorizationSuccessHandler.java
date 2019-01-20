@@ -18,7 +18,7 @@ public class AuthorizationSuccessHandler extends SavedRequestAwareAuthentication
         JSONObject json = new JSONObject();
         json.put("code", 200);
         json.put("result", "success");
-        json.put("message", "check ok");
+        json.put("message", "登录成功");
         response.setContentType("application/json;charset=UTF-8");
         HttpSession session = request.getSession();
         User user = new User();
