@@ -1,6 +1,5 @@
 (function(w,d,u){
 	var f = function(){};
-
 	var formatParams =function(data) {
         var arr = [];
         for (var name in data) {
@@ -54,8 +53,8 @@
 			    this.setCookie(name, "", -1);
 		},
 	};
-
     var ajax = function(options) {
+        var token = document.querySelector('meta[name="_csrf"]').getAttribute('content');
         var options = options || {};
         options.type = (options.type || "POST").toUpperCase();
         var xhr = new XMLHttpRequest();
@@ -76,6 +75,7 @@
         }
         if(options.type == "POST"){
             xhr.open("POST", options.url, true);
+            xhr.setRequestHeader("X-CSRF-TOKEN", token);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhr.send(util.serialize(options.data));
         }else{

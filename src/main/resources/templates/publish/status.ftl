@@ -1,7 +1,8 @@
-<!DOCTYPE html>
+<!DOCTYPE html xmlns:th="http://www.thymeleaf.org">
 <html>
 <head>
     <meta charset="utf-8"/>
+    <meta name="_csrf" content="${_csrf.token}"/>
     <title>java</title>
     <link rel="stylesheet" href="/css/style.css"/>
 </head><body>

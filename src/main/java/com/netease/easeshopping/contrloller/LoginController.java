@@ -40,7 +40,7 @@ public class LoginController {
      * @return 返回到首页
      * 主要实现对用户登录信息的校验，并返回到首页面
      */
-    @RequestMapping(path = {"/api/login"}, params = {"userName" ,"password"},  method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(path = {"/api/login"}, params = {"username" ,"password"},  method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
     public JSONObject login(HttpServletResponse response, @RequestParam("username") String username,
                  @RequestParam("password") String password, HttpSession session){

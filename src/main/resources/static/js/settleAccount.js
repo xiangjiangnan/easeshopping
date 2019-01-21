@@ -14,20 +14,20 @@
 			  "<th>" + '数量' + "</th>" +
 			  "<th>" + '价格' + "</th>" +
 			  "</tr>";
-
-	for(var i = 0; i < products.length; i++){
-		str = str +
-		"<tr>" +
-		"<td>" + products[i].title  + "</td>"+
-		"<td>" +
-		"<span class=\"lessNum\">"+ "-" + "</span>" +
-		"<span class=\"totalNum\" id=\"allNum\">" + products[i].num + "</span>" +
-		"<span id=\"thisId\">" + products[i].id + "</span>" +
-		"<span class=\"moreNum\">"+ "+" + "</span>" + "</td>" +
-		"<td>" + products[i].price + "</td>" +
-		"</tr>";
-	}
-
+    if(products){
+        for(var i = 0; i < products.length; i++){
+            str = str +
+            "<tr>" +
+            "<td>" + products[i].title  + "</td>"+
+            "<td>" +
+            "<span class=\"lessNum\">"+ "-" + "</span>" +
+            "<span class=\"totalNum\" id=\"allNum\">" + products[i].num + "</span>" +
+            "<span id=\"thisId\">" + products[i].id + "</span>" +
+            "<span class=\"moreNum\">"+ "+" + "</span>" + "</td>" +
+            "<td>" + products[i].price + "</td>" +
+            "</tr>";
+        }
+    }
 	$("newTable").innerHTML = str;
 
 	window.onload = function(){

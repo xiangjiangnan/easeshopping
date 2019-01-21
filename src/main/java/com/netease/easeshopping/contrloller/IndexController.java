@@ -63,23 +63,4 @@ public class IndexController {
         return "publish/detail";
     }
 
-    /**
-     * @param model
-     * @return 一些自定义的错误信息
-     */
-    @RequestMapping(path={"/error"}, method = {RequestMethod.GET,RequestMethod.POST})
-    public String error(Model model){
-        return "error/error";
-    }
-
-    /**
-     * @param e
-     * @return
-     * 主要用于处理一些无法访问或者不存在的页面
-     */
-    @ExceptionHandler()
-    @ResponseBody
-    public String error(Exception e){
-        return "404 not found";
-    }
 }

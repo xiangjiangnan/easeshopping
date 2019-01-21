@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8"/>
+    <meta name="_csrf" content="${_csrf.token}"/>
     <title>java</title>
     <link rel="stylesheet" href="/css/style.css"/>
 </head><body>
@@ -15,7 +16,7 @@
         </ul>
     </div>
 </div><form class="m-form m-form-ht n-login" id="loginForm" onsubmit="return false;" autocomplete="off">
-    <div class="fmitem">
+        <div class="fmitem">
         <label class="fmlab">用户名：</label>
         <div class="fmipt">
             <input class="u-ipt" name="username" autofocus/>
