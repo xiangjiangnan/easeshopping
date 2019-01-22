@@ -23,7 +23,7 @@ CREATE TABLE `commodity` (
   `remark` varchar(200) DEFAULT NULL,
   `picture` varchar(1024) NOT NULL,
   `content` varchar(1000) NOT NULL,
-  `price` float(5,2) NOT NULL,
+  `price` float(10,2) NOT NULL,
   `quantity` int(5) NULL DEFAULT 99999,
   `is_selled` int(1) NOT NULL DEFAULT 0,
   selled_quantity int(5) NOT NULL DEFAULT 0,
@@ -37,7 +37,7 @@ CREATE TABLE `account` (
   `title` varchar(100) NOT NULL,
   `buy_time` datetime DEFAULT CURRENT_TIMESTAMP,
   `picture` varchar(1024) NOT NULL,
-  `price` float(5,2) NOT NULL,
+  `price` float(10,2) NOT NULL,
   `quantity` int(5) NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -47,7 +47,7 @@ CREATE TABLE `cart` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `cid` varchar(100) NOT NULL,
   `title` varchar(100) NOT NULL,
-  `price` float(5,2) NOT NULL,
+  `price` float(10,2) NOT NULL,
   `quantity` int(5) NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

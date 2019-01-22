@@ -1,5 +1,9 @@
 package com.netease.easeshopping.configuration;
 
+import com.netease.easeshopping.configuration.handler.AuthorizationFailHandler;
+import com.netease.easeshopping.configuration.handler.AuthorizationLogoutSuccessHandler;
+import com.netease.easeshopping.configuration.handler.AuthorizationSuccessHandler;
+import com.netease.easeshopping.configuration.handler.MyAuthenticationEntryPoint;
 import com.netease.easeshopping.service.impl.UserDetailsServiceImpl;
 import com.netease.easeshopping.utils.Md5Util;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +15,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -23,20 +27,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/", "/show", "/login").permitAll()
+                .antMatchers("/", "/show").permitAll()
                 //.antMatchers("/account", "/settleAccount", "/api/buy").hasAuthority("BUYER")
                 //.antMatchers("/public", "/publicSubmit", "/api/upload", "/edit", "/api/delete").hasAuthority("SELLER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/api/login")
+                .loginPage("/login")
+                .loginProcessingUrl("/api/login")
                 .successHandler(new AuthorizationSuccessHandler())
                 .failureHandler(new AuthorizationFailHandler())
                 .permitAll()
                 .and()
                 .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .invalidateHttpSession(true)
                 .logoutSuccessHandler(new AuthorizationLogoutSuccessHandler())
-                .permitAll()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(new MyAuthenticationEntryPoint())
                 ;
@@ -45,7 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/js/**", "/css/**");
+        web.ignoring().antMatchers("/js/**", "/css/**", "/tags/**");
     }
 
     @Override

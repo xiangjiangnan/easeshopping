@@ -1,4 +1,4 @@
-package com.netease.easeshopping.configuration;
+package com.netease.easeshopping.configuration.handler;
 
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.security.core.AuthenticationException;

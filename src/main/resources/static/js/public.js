@@ -16,7 +16,7 @@
 	var imageMode = "urlUpload";
 
 
-
+	var token = document.querySelector('meta[name="_csrf"]').getAttribute('content');
 	var page = {
 		init:function(){
 			var $ = function(id){
@@ -68,6 +68,7 @@
 		            	    alert('An error occurred!');
 		            	  }
 		            	};
+		            xhr.setRequestHeader("X-CSRF-TOKEN", token);
 		            xhr.send(form);
 				}
 			});

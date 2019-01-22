@@ -42,6 +42,7 @@ public class IndexController {
     public String index(Model model, @RequestParam("type") int type){
         List<Commodity> list = commodityService.getAllCommoditiesByStatus(0);
         model.addAttribute("list", list);
+        model.addAttribute("type", 1);
         return "index";
     }
 

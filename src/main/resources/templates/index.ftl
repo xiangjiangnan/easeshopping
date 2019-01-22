@@ -8,43 +8,50 @@
 </head><body>
 <div class="n-support">请使用Chrome、Safari等webkit内核的浏览器！</div><div class="n-head">
     <div class="g-doc f-cb">
-        <#if (user ??)>
-        <#if (user.username == "buyer")>
-        <div class="user">
-            买家你好，<span class="name">${user.username}</span>！<a href="/logout">[退出]</a>
-        </div>
-        <ul class="nav">
-            <li><a href="/">首页</a></li>
-            <li><a href="/account">账务</a></li>
-            <li><a href="/settleAccount">购物车</a></li>
-        </ul>
+        <#if (Session.SPRING_SECURITY_CONTEXT ??)>
+            <#if (Session.SPRING_SECURITY_CONTEXT.authentication.principal.username == "buyer")>
+                <div class="user">
+                    买家你好，<span class="name">${Session.SPRING_SECURITY_CONTEXT.authentication.principal.username}</span>！<a href="/logout">[退出]</a>
+                </div>
+                <ul class="nav">
+                    <li><a href="/">首页</a></li>
+                    <li><a href="/account">账务</a></li>
+                    <li><a href="/settleAccount">购物车</a></li>
+                </ul>
+            <#else>
+                <div class="user">
+                    卖家你好，<span class="name">${Session.SPRING_SECURITY_CONTEXT.authentication.principal.username}</span>！<a href="/logout">[退出]</a>
+                </div>
+                <ul class="nav">
+                    <li><a href="/">首页</a></li>
+                    <li><a href="/public">发布</a></li>
+                </ul>
+            </#if>
         <#else>
-        <div class="user">
-            卖家你好，<span class="name">${user.username}</span>！<a href="/logout">[退出]</a>
-        </div>
-        <ul class="nav">
-            <li><a href="/">首页</a></li>
-            <li><a href="/public">发布</a></li>
-        </ul>
-    </#if>
-    <#else>
-    <div class="user">
-        请<a href="/login">[登录]</a>
-    </div>
-    <ul class="nav">
-        <li><a href="/">首页</a></li>
-    </ul>
-</#if>
+            <div class="user">
+                请<a href="/login">[登录]</a>
+            </div>
+            <ul class="nav">
+                <li><a href="/">首页</a></li>
+            </ul>
+        </#if>
 </div>
 </div><div class="g-doc">
     <div class="m-tab m-tab-fw m-tab-simple f-cb">
         <div class="tab">
             <ul>
-                <li class="z-sel"><a href="/">所有内容</a></li>
-                <#if (user??)>
-                    <#if (user.username == "buyer")>
-                        <li class=""><a href="/?type=1" >未购买的内容</a></li>
+                <#if (Session.SPRING_SECURITY_CONTEXT ??)>
+                    <#if (Session.SPRING_SECURITY_CONTEXT.authentication.principal.username == "buyer")>
+                        <#if type ??>
+                            <li class=""><a href="/">所有内容</a></li>
+                            <li class="z-sel"><a href="/?type=1">未购买的内容</a></li>
+                        <#else>
+                            <li class="z-sel"><a href="/">所有内容</a></li>
+                            <li class=""><a href="/?type=1">未购买的内容</a></li>
+                        </#if>
                     </#if>
+                <#else>
+                    <li class="z-sel"><a href="/">所有内容</a></li>
                 </#if>
             </ul>
         </div>
@@ -59,17 +66,17 @@
                                 <h3>${commodity.title}</h3>
                             <div class="price">
                                 <span class="v-unit">¥</span><span class="v-value">${commodity.price}</span>
-                                <#if (user??)>
+                                <#if (Session.SPRING_SECURITY_CONTEXT ??)>
                                     <#if (commodity.isSelled == 1)>
-                                        <#if (user.username == "seller")>
-                                            <span class="v-unit-right"><b>共售出：</span><span class="v-value">${commodity.selledQuantity}</b></span>
+                                        <#if (Session.SPRING_SECURITY_CONTEXT.authentication.principal.username == "seller")>
+                                            <span class = "v-unit-right"><b>共售出：</span><span class="v-value-right">${commodity.selledQuantity}</b></span>
                                         </#if>
                                     </#if>
                                 </#if>
                             </div>
-                            <#if (user??)>
+                            <#if (Session.SPRING_SECURITY_CONTEXT ??)>
                                 <#if (commodity.isSelled == 1)>
-                                    <#if (user.username == "buyer")>
+                                    <#if (Session.SPRING_SECURITY_CONTEXT.authentication.principal.username == "buyer")>
                                         <span class="had"><b>已购买</b></span>
                                     <#else>
                                     <span class="had"><b>已售出</b></span>
@@ -77,9 +84,9 @@
                                 </#if>
                             </#if>
                         </a>
-                        <#if (user??)>
+                        <#if (Session.SPRING_SECURITY_CONTEXT ??)>
                             <#if (commodity.isSelled == 0)>
-                                <#if (user.username == "seller")>
+                                <#if (Session.SPRING_SECURITY_CONTEXT.authentication.principal.username == "seller")>
                                     <span class="u-btn u-btn-normal u-btn-xs del" data-del="${commodity.id}">删除</span>
                                 </#if>
                             </#if>

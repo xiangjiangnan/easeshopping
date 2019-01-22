@@ -1,4 +1,4 @@
-package com.netease.easeshopping.configuration;
+package com.netease.easeshopping.configuration.handler;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;

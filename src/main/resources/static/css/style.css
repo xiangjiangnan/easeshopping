@@ -74,8 +74,9 @@ select.u-ipt{width:auto;padding:0;line-height:1;}
 }
 
 .v-unit{padding-right:5px;color:#999;}
-.v-unit-right{padding-left:60px;color:#999;}
+.v-unit-right{position:relative;padding-left:20px;color:black;font-size:10px;}
 .v-value{color:#333;font-size:20px;font-weight: bold;color:#d22147;}
+.v-value-right{color:#333;font-size:12px;font-weight: bold;color:#d22147;}
 .v-time{color:#666;}
 .v-load{position:fixed;z-index:99;top:0;left:0;right:0;bottom:0;}
 .v-load .load{position:absolute;top:50%;left:50%;margin:-20px 0 0 -20px;width:40px;height:40px;line-height:40px;overflow:hidden;background:rgba(0,0,0,0.5);border-radius:20px;color:#fff;}

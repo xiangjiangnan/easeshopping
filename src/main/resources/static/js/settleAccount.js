@@ -88,6 +88,8 @@
 				            }
 					};
 					 xhr.open('post','/api/buy');
+                     var token = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+                     xhr.setRequestHeader("X-CSRF-TOKEN", token);
 					 xhr.setRequestHeader('Content-Type','application/json');
 					 console.log(data);
 					 xhr.send(data);
@@ -96,6 +98,8 @@
 			return;
 	};
 	$('back').onclick = function(){
-		location.href = window.history.back();
+		//location.href = window.history.back();
+		window.history.back();
+		return false;
 	}
 })(window,document);

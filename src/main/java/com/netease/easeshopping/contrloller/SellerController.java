@@ -49,7 +49,7 @@ public class SellerController {
      * 实现第一次发布和对发布的商品再次进行修改
      */
     @PreAuthorize("hasAuthority('SELLER')")
-    @RequestMapping(path={"/publicSubmit"}, method = {RequestMethod.POST})
+    @RequestMapping(path={"/publicSubmit"}, method = {RequestMethod.GET, RequestMethod.POST})
     public String submit(HttpSession session, @RequestParam("title") String title,
                          @RequestParam("summary") String summary, @RequestParam("image") String image,
                          @RequestParam("detail") String detail, @RequestParam("price") String price){

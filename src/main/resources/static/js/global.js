@@ -75,6 +75,7 @@
         }
         if(options.type == "POST"){
             xhr.open("POST", options.url, true);
+            console.log(options.url)
             xhr.setRequestHeader("X-CSRF-TOKEN", token);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhr.send(util.serialize(options.data));

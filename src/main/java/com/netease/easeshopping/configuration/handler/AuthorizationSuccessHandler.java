@@ -1,4 +1,4 @@
-package com.netease.easeshopping.configuration;
+package com.netease.easeshopping.configuration.handler;
 
 import com.alibaba.fastjson.JSONObject;
 import com.netease.easeshopping.model.User;
@@ -20,10 +20,6 @@ public class AuthorizationSuccessHandler extends SavedRequestAwareAuthentication
         json.put("result", "success");
         json.put("message", "登录成功");
         response.setContentType("application/json;charset=UTF-8");
-        HttpSession session = request.getSession();
-        User user = new User();
-        user.setUsername(authentication.getName());
-        session.setAttribute("user", user);
         response.getWriter().write(json.toString());
     }
 }

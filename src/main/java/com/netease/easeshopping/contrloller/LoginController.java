@@ -75,7 +75,6 @@ public class LoginController {
      */
     @RequestMapping(path = {"/logout"}, method = {RequestMethod.GET, RequestMethod.POST})
     public void logout(HttpSession session, HttpServletResponse response){
-        session.setAttribute("user", null);
         try {
             response.sendRedirect("/login");
         } catch (IOException e) {

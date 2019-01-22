@@ -9,7 +9,7 @@
 <div class="n-support">请使用Chrome、Safari等webkit内核的浏览器！</div><div class="n-head">
     <div class="g-doc f-cb">
         <div class="user">
-            买家你好，<span class="name">buyer</span>！<a href="/logout">[退出]</a>
+            买家你好，<span class="name">${Session.SPRING_SECURITY_CONTEXT.authentication.principal.username}</span>！<a href="/logout">[退出]</a>
         </div>
         <ul class="nav">
             <li><a href="/">首页</a></li>

@@ -11,6 +11,7 @@ public class EaseShoppingApplicationTests {
 
 	@Test
 	public void contextLoads() {
+
 	}
 
 }

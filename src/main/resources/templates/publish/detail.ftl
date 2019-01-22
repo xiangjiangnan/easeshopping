@@ -8,10 +8,10 @@
 </head><body>
 <div class="n-support">请使用Chrome、Safari等webkit内核的浏览器！</div><div class="n-head">
     <div class="g-doc f-cb">
-        <#if (user ??)>
-            <#if (user.username == "buyer")>
+        <#if (Session.SPRING_SECURITY_CONTEXT ??)>
+            <#if (Session.SPRING_SECURITY_CONTEXT.authentication.principal.username == "buyer")>
                 <div class="user">
-                    买家你好，<span class="name">${user.username}</span>！<a href="/logout">[退出]</a>
+                    买家你好，<span class="name">${Session.SPRING_SECURITY_CONTEXT.authentication.principal.username}</span>！<a href="/logout">[退出]</a>
                 </div>
                 <ul class="nav">
                     <li><a href="/">首页</a></li>
@@ -20,7 +20,7 @@
                 </ul>
             <#else>
                 <div class="user">
-                    卖家你好，<span class="name">${user.username}</span>！<a href="/logout">[退出]</a>
+                    卖家你好，<span class="name">${Session.SPRING_SECURITY_CONTEXT.authentication.principal.username}</span>！<a href="/logout">[退出]</a>
                 </div>
                 <ul class="nav">
                     <li><a href="/">首页</a></li>
@@ -50,17 +50,20 @@
                 </#if>
                 </span><span id="addNum" class="moreNum"><a>+</a></span></div>
             <div class="oprt f-cb">
-                <#if (user ??)>
-                    <#if (user.username == "seller")>
+                <#if (Session.SPRING_SECURITY_CONTEXT ??)>
+                    <#if (Session.SPRING_SECURITY_CONTEXT.authentication.principal.username == "seller")>
                         <a href="/edit?id=${commodity.id}" class="u-btn u-btn-primary">编 辑</a>
                     <#else>
-                        <button class="u-btn u-btn-primary" id="add" data-id="${commodity.id}" data-title="${commodity.title}" data-price="${commodity.price}">
-                        加入购物车
-                        </button>
+
                         <#if (commodity.isSelled == 1)>
-                            <!--<span class="u-btn u-btn-primary z-dis">已购买</span>-->
+                            <button class="u-btn u-btn-primary" id="add" data-id="${commodity.id}" data-title="${commodity.title}" data-price="${commodity.price}">
+                            继续购买
+                            </button>
                             <span class="buyprice">当时购买价格：${price}</span>
                         <#else>
+                            <button class="u-btn u-btn-primary" id="add" data-id="${commodity.id}" data-title="${commodity.title}" data-price="${commodity.price}">
+                            加入购物车
+                            </button>
                         </#if>
                     </#if>
                 </#if>
