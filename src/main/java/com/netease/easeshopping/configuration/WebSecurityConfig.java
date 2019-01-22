@@ -7,6 +7,8 @@ import com.netease.easeshopping.configuration.handler.MyAuthenticationEntryPoint
 import com.netease.easeshopping.service.impl.UserDetailsServiceImpl;
 import com.netease.easeshopping.utils.Md5Util;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -51,7 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/js/**", "/css/**", "/tags/**");
+        web.ignoring().antMatchers("/js/**", "/css/**");
     }
 
     @Override

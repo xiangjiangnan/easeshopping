@@ -44,7 +44,8 @@ dependencies {
 	implementation group: 'com.alibaba', name: 'fastjson', version: '1.2.51'
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.1.0.RELEASE'
 	implementation group: 'org.springframework.security', name: 'spring-security-taglibs', version: '4.2.3.RELEASE'
-	
+	implementation group: 'org.apache.tomcat', name: 'tomcat-jsp-api', version: '9.0.5'
+
 }
 
 configurations {

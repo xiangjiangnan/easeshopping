@@ -1,4 +1,5 @@
 <!DOCTYPE html xmlns:th="http://www.thymeleaf.org">
+<#assign security=JspTaglibs["http://www.springframework.org/security/tags"]/>
 <html>
 <head>
     <meta charset="utf-8"/>
@@ -9,7 +10,7 @@
 <div class="n-support">请使用Chrome、Safari等webkit内核的浏览器！</div><div class="n-head">
     <div class="g-doc f-cb">
         <#if (Session.SPRING_SECURITY_CONTEXT ??)>
-            <#if (Session.SPRING_SECURITY_CONTEXT.authentication.principal.username == "buyer")>
+            <@security.authorize access="hasAuthority('BUYER')" var="isAuthenticated">
                 <div class="user">
                     买家你好，<span class="name">${Session.SPRING_SECURITY_CONTEXT.authentication.principal.username}</span>！<a href="/logout">[退出]</a>
                 </div>
@@ -18,7 +19,8 @@
                     <li><a href="/account">账务</a></li>
                     <li><a href="/settleAccount">购物车</a></li>
                 </ul>
-            <#else>
+            </@security.authorize>
+            <@security.authorize access="hasAuthority('SELLER')" var="isAuthenticated">
                 <div class="user">
                     卖家你好，<span class="name">${Session.SPRING_SECURITY_CONTEXT.authentication.principal.username}</span>！<a href="/logout">[退出]</a>
                 </div>
@@ -26,7 +28,7 @@
                     <li><a href="/">首页</a></li>
                     <li><a href="/public">发布</a></li>
                 </ul>
-            </#if>
+            </@security.authorize>
         <#else>
             <div class="user">
                 请<a href="/login">[登录]</a>
@@ -41,7 +43,7 @@
         <div class="tab">
             <ul>
                 <#if (Session.SPRING_SECURITY_CONTEXT ??)>
-                    <#if (Session.SPRING_SECURITY_CONTEXT.authentication.principal.username == "buyer")>
+                    <@security.authorize access="hasAnyAuthority('BUYER')" var="isAuthenticated">
                         <#if type ??>
                             <li class=""><a href="/">所有内容</a></li>
                             <li class="z-sel"><a href="/?type=1">未购买的内容</a></li>
@@ -49,7 +51,7 @@
                             <li class="z-sel"><a href="/">所有内容</a></li>
                             <li class=""><a href="/?type=1">未购买的内容</a></li>
                         </#if>
-                    </#if>
+                    </@security.authorize>
                 <#else>
                     <li class="z-sel"><a href="/">所有内容</a></li>
                 </#if>
@@ -68,27 +70,28 @@
                                 <span class="v-unit">¥</span><span class="v-value">${commodity.price}</span>
                                 <#if (Session.SPRING_SECURITY_CONTEXT ??)>
                                     <#if (commodity.isSelled == 1)>
-                                        <#if (Session.SPRING_SECURITY_CONTEXT.authentication.principal.username == "seller")>
+                                        <@security.authorize access="hasAnyAuthority('SELLER')" var="isAuthenticated">
                                             <span class = "v-unit-right"><b>共售出：</span><span class="v-value-right">${commodity.selledQuantity}</b></span>
-                                        </#if>
+                                        </@security.authorize>
                                     </#if>
                                 </#if>
                             </div>
                             <#if (Session.SPRING_SECURITY_CONTEXT ??)>
                                 <#if (commodity.isSelled == 1)>
-                                    <#if (Session.SPRING_SECURITY_CONTEXT.authentication.principal.username == "buyer")>
+                                    <@security.authorize access="hasAnyAuthority('BUYER')" var="isAuthenticated">
                                         <span class="had"><b>已购买</b></span>
-                                    <#else>
+                                    </@security.authorize>
+                                    <@security.authorize access="hasAnyAuthority('SELLER')" var="isAuthenticated">
                                     <span class="had"><b>已售出</b></span>
-                                    </#if>
+                                    </@security.authorize>
                                 </#if>
                             </#if>
                         </a>
                         <#if (Session.SPRING_SECURITY_CONTEXT ??)>
                             <#if (commodity.isSelled == 0)>
-                                <#if (Session.SPRING_SECURITY_CONTEXT.authentication.principal.username == "seller")>
+                                <@security.authorize access="hasAnyAuthority('SELLER')" var="isAuthenticated">
                                     <span class="u-btn u-btn-normal u-btn-xs del" data-del="${commodity.id}">删除</span>
-                                </#if>
+                                </@security.authorize>
                             </#if>
                         </#if>
                     </li>

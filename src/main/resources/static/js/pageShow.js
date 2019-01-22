@@ -7,7 +7,7 @@
 		e = window.event || e;
 		o = e.srcElement || e.target;
 		var num = $('allNum').textContent;
-		if(num > 0){
+		if(num > 1){
 			num --;
 			$('allNum').innerHTML = num;
 		}else{

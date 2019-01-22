@@ -1,4 +1,5 @@
 <!DOCTYPE html xmlns:th="http://www.thymeleaf.org">
+<#assign security=JspTaglibs["http://www.springframework.org/security/tags"]/>
 <html>
 <head>
     <meta charset="utf-8"/>
@@ -9,7 +10,7 @@
 <div class="n-support">请使用Chrome、Safari等webkit内核的浏览器！</div><div class="n-head">
     <div class="g-doc f-cb">
         <#if (Session.SPRING_SECURITY_CONTEXT ??)>
-            <#if (Session.SPRING_SECURITY_CONTEXT.authentication.principal.username == "buyer")>
+            <@security.authorize access="hasAuthority('BUYER')" var="isAuthenticated">
                 <div class="user">
                     买家你好，<span class="name">${Session.SPRING_SECURITY_CONTEXT.authentication.principal.username}</span>！<a href="/logout">[退出]</a>
                 </div>
@@ -18,7 +19,8 @@
                     <li><a href="/account">账务</a></li>
                     <li><a href="/settleAccount">购物车</a></li>
                 </ul>
-            <#else>
+            </@security.authorize>
+            <@security.authorize access="hasAuthority('SELLER')" var="isAuthenticated">
                 <div class="user">
                     卖家你好，<span class="name">${Session.SPRING_SECURITY_CONTEXT.authentication.principal.username}</span>！<a href="/logout">[退出]</a>
                 </div>
@@ -26,7 +28,7 @@
                     <li><a href="/">首页</a></li>
                     <li><a href="/public">发布</a></li>
                 </ul>
-            </#if>
+            </@security.authorize>
         <#else>
             <div class="user">
                 请<a href="/login">[登录]</a>
@@ -51,10 +53,10 @@
                 </span><span id="addNum" class="moreNum"><a>+</a></span></div>
             <div class="oprt f-cb">
                 <#if (Session.SPRING_SECURITY_CONTEXT ??)>
-                    <#if (Session.SPRING_SECURITY_CONTEXT.authentication.principal.username == "seller")>
+                    <@security.authorize access="hasAuthority('SELLER')" var="isAuthenticated">
                         <a href="/edit?id=${commodity.id}" class="u-btn u-btn-primary">编 辑</a>
-                    <#else>
-
+                    </@security.authorize>
+                    <@security.authorize access="hasAuthority('BUYER')" var="isAuthenticated">
                         <#if (commodity.isSelled == 1)>
                             <button class="u-btn u-btn-primary" id="add" data-id="${commodity.id}" data-title="${commodity.title}" data-price="${commodity.price}">
                             继续购买
@@ -65,7 +67,7 @@
                             加入购物车
                             </button>
                         </#if>
-                    </#if>
+                    </@security.authorize>
                 </#if>
             </div>
         </div>

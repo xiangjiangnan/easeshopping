@@ -44,7 +44,7 @@
 				var num = target.parentElement.children[1].textContent;
 				var id = target.parentElement.children[2].textContent;
 				num --;
-				if(num < 0){
+				if(num < 1){
 					alert("该商品数量为0");
 				}else{
 					target.parentElement.children[1].textContent = num;
