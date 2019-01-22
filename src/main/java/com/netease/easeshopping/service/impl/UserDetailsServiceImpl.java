@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * 用于认证的自定义实体
+ */
 @Component
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired

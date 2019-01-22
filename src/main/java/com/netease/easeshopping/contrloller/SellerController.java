@@ -108,17 +108,18 @@ public class SellerController {
     @ResponseBody
     public JSONObject delete(Model model, @RequestParam("id") int id, HttpServletResponse response) {
         Commodity commodity = commodityService.getCommodityDetailByPrimaryKey(id);
-        String url = commodity.getPicture();
-        int location = url.lastIndexOf(".");
-        if(location > 0 ){
-            String fileExt = url.substring(location + 1).toLowerCase();
-            if(BaseUtil.isFileAllowed(fileExt)) {
-                File file = new File(BaseUtil.IMAGE_DIR + url);
-                if (file.exists() && file.isFile()) {
-                    file.delete();
-                }
-            }
-        }
+        //删除本地图片
+//        String url = commodity.getPicture();
+//        int location = url.lastIndexOf(".");
+//        if(location > 0 ){
+//            String fileExt = url.substring(location + 1).toLowerCase();
+//            if(BaseUtil.isFileAllowed(fileExt)) {
+//                File file = new File(BaseUtil.IMAGE_DIR + url);
+//                if (file.exists() && file.isFile()) {
+//                    file.delete();
+//                }
+//            }
+//        }
         commodityService.deleteCommodityByPrimaryKey(id);
 
         JSONObject json = new JSONObject();

@@ -6,6 +6,9 @@ import java.nio.ByteBuffer;
 import java.util.Random;
 import java.util.UUID;
 
+/**
+ * 用于产生唯一的商品id
+ */
 public class UuidUtil {
     static long counter= new Random().nextLong();
     static Object lock = new Object();

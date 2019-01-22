@@ -4,6 +4,9 @@ import java.security.MessageDigest;
 import java.util.Map;
 import com.alibaba.fastjson.JSONObject;
 
+/**
+ * 用于对前端传过来的密码MD5加密，以及返回一些json字符串
+ */
 public class Md5Util {
 
     private static String[] hex = {"0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F"};

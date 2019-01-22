@@ -21,15 +21,15 @@ public class SellerServiceImpl implements SellerService {
     public Commodity submit(String title, String summary, String image, String detail,
                             String price){
         Commodity commodity = new Commodity();
-        String cid = UuidUtil.generate();
+        String cid = UuidUtil.generate();//生成商品唯一id
         commodity.setCid(cid);
         commodity.setTitle(title);
         commodity.setRemark(summary);
         commodity.setContent(detail);
         commodity.setPrice(Float.valueOf(price));
-        if(image != null && image.length() > 0){
+        if(image != null && image.length() > 0){//保存图片网址
             commodity.setPicture(image);
-        }else{
+        }else{//保存图片本地地址
             commodity.setPicture(commodityService.getfileName());
         }
         commodityService.addNewCommodity(commodity);
