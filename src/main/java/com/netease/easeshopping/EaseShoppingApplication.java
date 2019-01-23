@@ -1,7 +1,12 @@
 package com.netease.easeshopping;
 
+import org.apache.tomcat.util.descriptor.web.ErrorPage;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.server.ConfigurableWebServerFactory;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 import static freemarker.template.utility.Collections12.singletonList;

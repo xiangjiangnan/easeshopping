@@ -64,4 +64,9 @@ public class IndexController {
         return "publish/detail";
     }
 
+    @ExceptionHandler
+    @ResponseBody
+    public String error(){
+        return "很遗憾，您访问的页面不存在(╯^╰〉！";
+    }
 }
