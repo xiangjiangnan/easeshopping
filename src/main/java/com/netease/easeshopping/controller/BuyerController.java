@@ -1,4 +1,4 @@
-package com.netease.easeshopping.contrloller;
+package com.netease.easeshopping.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class BuyerContorller {
+public class BuyerController {
 
     @Autowired
     BuyerService buyerService;

@@ -26,9 +26,7 @@
     <div id="act-btn"><button class="u-btn u-btn-primary" id="back">退出</button>
         <button class="u-btn u-btn-primary" id="Account">购买</button></div>
 </div>
-<div class="n-foot">
-    <p>版权所有：网易云课堂<a href="http://mooc.study.163.com/smartSpec/detail/85002.htm">Java开发工程师(Web方向)</a>微专业团队</p>
-</div><script type="text/javascript" src="/js/global.js"></script>
+<script type="text/javascript" src="/js/global.js"></script>
 <script type="text/javascript" src="/js/settleAccount.js"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-package com.netease.easeshopping.contrloller;
+package com.netease.easeshopping.controller;
 
 
 import com.netease.easeshopping.model.Commodity;

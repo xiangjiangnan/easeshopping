@@ -1,10 +1,9 @@
-package com.netease.easeshopping.contrloller;
+package com.netease.easeshopping.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.netease.easeshopping.model.Commodity;
 import com.netease.easeshopping.service.CommodityService;
 import com.netease.easeshopping.service.SellerService;
-import com.netease.easeshopping.utils.BaseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -14,7 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.File;
 
 /**
  * 这里实现卖家的相关业务处理

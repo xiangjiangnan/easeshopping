@@ -1,4 +1,4 @@
-package com.netease.easeshopping.contrloller;
+package com.netease.easeshopping.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.netease.easeshopping.model.User;
@@ -53,7 +53,6 @@ public class LoginController {
                 json.put("code", 200);
                 json.put("result", "success");
                 json.put("message", "check ok");
-                System.out.println("show");
             }else {
                 json.put("code", 400);
                 json.put("result", "failed");

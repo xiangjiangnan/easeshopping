@@ -1,4 +1,4 @@
-package com.netease.easeshopping.contrloller;
+package com.netease.easeshopping.controller;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
