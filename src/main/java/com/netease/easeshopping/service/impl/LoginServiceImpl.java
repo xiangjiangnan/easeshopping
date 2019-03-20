@@ -1,8 +1,10 @@
 package com.netease.easeshopping.service.impl;
 
 import com.netease.easeshopping.dao.UserMapper;
+import com.netease.easeshopping.model.LoginWrapper;
 import com.netease.easeshopping.model.User;
 import com.netease.easeshopping.service.LoginService;
+import com.netease.easeshopping.utils.CodeUtil;
 import com.netease.easeshopping.utils.Md5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,35 +19,49 @@ public class LoginServiceImpl implements LoginService {
     private UserMapper userMapper;
 
     @Override
-    public Map<String, Object> login(String username, String password) throws Exception{
+    public LoginWrapper login(String username, String password) throws Exception{
         Map<String, Object> map = new HashMap<>();
+        LoginWrapper wrapper = new LoginWrapper();
         boolean flag = checkInfo(username, password, map);
         if(flag == false){
-            return map;
+            wrapper.setCode(CodeUtil.ERROR.getCode());
+            wrapper.setResult(CodeUtil.ERROR.getResult());
+            wrapper.setMessage((String)map.get("message"));
+            return wrapper;
         }
         User user = selectByUsername(username);
         if(user == null){
-            map.put("msg", "该用户不存在。");
-            return map;
+            wrapper.setCode(CodeUtil.FAILED.getCode());
+            wrapper.setResult(CodeUtil.FAILED.getResult());
+            wrapper.setMessage("该用户不存在。");
+            return wrapper;
         }
         try {
             if (!(Md5Util.encodeByMd5(password).toLowerCase()).equals(user.getPassword())) {
             //if (!(Md5Util.encodeByMd5(password + user.getSalt()).toLowerCase()).equals(user.getPassword())) {
-                map.put("msg", "用户密码错误。");
-                return map;
+                wrapper.setCode(CodeUtil.FAILED.getCode());
+                wrapper.setResult(CodeUtil.FAILED.getResult());
+                wrapper.setMessage("用户密码错误。");
+                return wrapper;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         if(user.getUsername().equals("buyer") || user.getUsername().equals("seller")) {
+            wrapper.setCode(CodeUtil.SUCCESS.getCode());
+            wrapper.setResult(CodeUtil.SUCCESS.getResult());
+            wrapper.setMessage("登录成功。");
+            wrapper.setObject(user);
             map.put("token", user);
         }else{
-            map.put("msg", "不合法的用户");
-            return map;
+            wrapper.setCode(CodeUtil.ERROR.getCode());
+            wrapper.setResult(CodeUtil.ERROR.getResult());
+            wrapper.setMessage("不合法的用户。");
+            return wrapper;
         }
 //        String ticket = addLoginTicket(user.getId());
 //        map.put("ticket", ticket);
-        return map;
+        return wrapper;
     }
 
     private User selectByUsername(String username){
@@ -59,11 +75,11 @@ public class LoginServiceImpl implements LoginService {
             if (username.matches(usernameMatch)) {
                 flag = true;
             } else {
-                map.put("username", "用户名含有非法字符");
+                map.put("message", "用户名含有非法字符");
                 flag = false;
             }
         }else{
-            map.put("username", "用户名不能为空");
+            map.put("message", "用户名不能为空");
             flag = false;
         }
         if (password != null && password.trim().length()>0) {
@@ -71,11 +87,11 @@ public class LoginServiceImpl implements LoginService {
             if(password.matches(passwordMatch)){
                 flag = true;
             }else{
-                map.put("password", "密码含有非法字符");
+                map.put("message", "密码含有非法字符");
                 flag = false;
             }
         }else{
-            map.put("msgpwd", "密码不能为空");
+            map.put("message", "密码不能为空");
             flag = false;
         }
         return flag;

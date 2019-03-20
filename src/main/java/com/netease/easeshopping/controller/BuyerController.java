@@ -8,6 +8,7 @@ import com.netease.easeshopping.model.Cart;
 import com.netease.easeshopping.model.Commodity;
 import com.netease.easeshopping.service.BuyerService;
 import com.netease.easeshopping.service.CommodityService;
+import com.netease.easeshopping.utils.CodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -94,8 +95,8 @@ public class BuyerController {
             System.out.println(id + ":" + number);
         }
         JSONObject json = new JSONObject();
-        json.put("code", 200);
-        json.put("result", "success");
+        json.put("code", CodeUtil.SUCCESS.getCode());
+        json.put("result", CodeUtil.SUCCESS.getResult());
         json.put("message", "buy ok");
         return json;
     }

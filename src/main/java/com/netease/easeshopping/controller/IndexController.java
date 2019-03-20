@@ -1,9 +1,11 @@
 package com.netease.easeshopping.controller;
 
 
+import com.netease.easeshopping.model.AccountWrapper;
 import com.netease.easeshopping.model.Commodity;
 import com.netease.easeshopping.service.BuyerService;
 import com.netease.easeshopping.service.CommodityService;
+import com.netease.easeshopping.utils.CodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,7 +38,7 @@ public class IndexController {
     /**
      * @param model
      * @return 进入到首页
-     * 未购买商品的展示
+     * 未购买商品的展示，依据前端给的URL，这里path不变，靠前端给的参数来决定展示未购买商品
      */
     @RequestMapping(path={"/"}, params = {"type"}, method = {RequestMethod.GET})
     public String index(Model model, @RequestParam("type") int type){
@@ -56,10 +58,10 @@ public class IndexController {
     public String showDetail(Model model, @RequestParam("id") int id){
         Commodity commodity = commodityService.getCommodityDetailByPrimaryKey(id);
         model.addAttribute("commodity", commodity);
-        Map<String, Object> map = buyerService.getAccountByCid(commodity.getCid());
-        if(map != null) {
-            model.addAttribute("price", map.get("price"));
-            model.addAttribute("totalNum", map.get("totalNum"));
+        AccountWrapper wrapper = buyerService.getAccountByCid(commodity.getCid());
+        if(wrapper.getCode() == CodeUtil.SUCCESS.getCode()) {
+            model.addAttribute("price", wrapper.getPrice());
+            model.addAttribute("totalNum", wrapper.getTotalNum());
         }
         return "publish/detail";
     }

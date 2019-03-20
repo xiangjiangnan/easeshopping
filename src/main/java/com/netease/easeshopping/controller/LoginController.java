@@ -1,9 +1,11 @@
 package com.netease.easeshopping.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.netease.easeshopping.model.LoginWrapper;
 import com.netease.easeshopping.model.User;
 import com.netease.easeshopping.service.CommodityService;
 import com.netease.easeshopping.service.LoginService;
+import com.netease.easeshopping.utils.CodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Map;
 
 @Controller
 public class LoginController {
@@ -44,25 +45,21 @@ public class LoginController {
     @ResponseBody
     public JSONObject login(HttpServletResponse response, @RequestParam("username") String username,
                  @RequestParam("password") String password, HttpSession session){
-        Map<String, Object> map = null;
+        LoginWrapper wrapper = null;
         JSONObject json = new JSONObject();
         try {
-            map = loginService.login(username, password);
-            if(map.containsKey("token")){
-                session.setAttribute("user", (User)map.get("token"));
-                json.put("code", 200);
-                json.put("result", "success");
-                json.put("message", "check ok");
-            }else {
-                json.put("code", 400);
-                json.put("result", "failed");
-                json.put("message", map.get("msg"));
+            wrapper = loginService.login(username, password);
+            if(wrapper.getObject() != null){
+                session.setAttribute("user", (User)wrapper.getObject());
             }
+            json.put("code", wrapper.getCode());
+            json.put("result", wrapper.getResult());
+            json.put("message", wrapper.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
-            json.put("code", 500);
-            json.put("result", "failed");
-            json.put("message", "exception");
+            json.put("code", CodeUtil.EXCEPTION.getCode());
+            json.put("result", CodeUtil.EXCEPTION.getResult());
+            json.put("message", "访问异常");
         }
         return json;
     }

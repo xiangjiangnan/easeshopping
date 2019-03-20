@@ -2,16 +2,14 @@ package com.netease.easeshopping.service.impl;
 
 import com.netease.easeshopping.dao.AccountMapper;
 import com.netease.easeshopping.dao.CartMapper;
-import com.netease.easeshopping.model.Account;
-import com.netease.easeshopping.model.Cart;
-import com.netease.easeshopping.model.Commodity;
+import com.netease.easeshopping.model.*;
 import com.netease.easeshopping.service.BuyerService;
+import com.netease.easeshopping.utils.CodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class BuyerServiceImpl implements BuyerService {
@@ -23,8 +21,9 @@ public class BuyerServiceImpl implements BuyerService {
     private CartMapper cartMapper;
 
     @Override
-    public Map<String, Object> getAccountByCid(String cid){
+    public AccountWrapper getAccountByCid(String cid){
         HashMap<String, Object> map = null;
+        AccountWrapper wrapper = new AccountWrapper();
         List<Account> accounts = accountMapper.selectByCid(cid);
         int totalNum = 0;
         if(accounts.size() > 0) {
@@ -32,10 +31,17 @@ public class BuyerServiceImpl implements BuyerService {
             for (Account account : accounts) {
                 totalNum += account.getQuantity();
             }
-            map.put("price", accounts.get(0).getPrice());
-            map.put("totalNum", totalNum);
+            wrapper.setCode(CodeUtil.SUCCESS.getCode());
+            wrapper.setResult(CodeUtil.SUCCESS.getResult());
+            wrapper.setMessage("获取成功。");
+            wrapper.setPrice(accounts.get(0).getPrice());
+            wrapper.setTotalNum(totalNum);
+        }else{
+            wrapper.setCode(CodeUtil.FAILED.getCode());
+            wrapper.setResult(CodeUtil.FAILED.getResult());
+            wrapper.setMessage("获取失败。");
         }
-        return map;
+        return wrapper;
     }
 
     @Override

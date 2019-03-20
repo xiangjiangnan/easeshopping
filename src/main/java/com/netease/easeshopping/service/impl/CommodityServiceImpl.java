@@ -18,18 +18,19 @@ import java.util.UUID;
 @Service
 public class CommodityServiceImpl implements CommodityService {
 
-    private String fileName;
+    //private String fileName;
+    private static final ThreadLocal<String> fileName = new ThreadLocal();//这里使用ThreadLocal防止并发问题
 
     @Autowired
     private CommodityMapper commodityMapper;
 
     private void setfileName(String fileName){
-        this.fileName = fileName;
+        this.fileName.set(fileName);
     }
 
     @Override
     public String getfileName(){
-        return fileName;
+        return fileName.get();
     }
 
     @Override

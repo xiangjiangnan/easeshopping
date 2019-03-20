@@ -1,7 +1,7 @@
 package com.netease.easeshopping.service;
 
-import java.util.Map;
+import com.netease.easeshopping.model.LoginWrapper;
 
 public interface LoginService {
-    Map<String, Object> login(String username, String password) throws Exception;
+    LoginWrapper login(String username, String password) throws Exception;
 }
