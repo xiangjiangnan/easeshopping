@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.netease.easeshopping.model.Commodity;
 import com.netease.easeshopping.service.CommodityService;
 import com.netease.easeshopping.service.SellerService;
+import com.netease.easeshopping.utils.CodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -76,7 +77,9 @@ public class SellerController {
     public JSONObject upload(@RequestParam("file") MultipartFile file){
         String fileName = commodityService.saveImage(file);
         JSONObject json = new JSONObject();
+        json.put("code",CodeUtil.SUCCESS.getCode());
         json.put("result", fileName);
+        json.put("message", "保存成功");
         return json;
     }
 
@@ -121,8 +124,8 @@ public class SellerController {
         commodityService.deleteCommodityByPrimaryKey(id);
 
         JSONObject json = new JSONObject();
-        json.put("code", 200);
-        json.put("result", "success");
+        json.put("code", CodeUtil.SUCCESS.getCode());
+        json.put("result", CodeUtil.SUCCESS.getResult());
         json.put("message", "delete ok");
         return json;
     }

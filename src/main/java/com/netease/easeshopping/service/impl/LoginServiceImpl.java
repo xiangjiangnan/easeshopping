@@ -19,7 +19,7 @@ public class LoginServiceImpl implements LoginService {
     private UserMapper userMapper;
 
     @Override
-    public LoginWrapper login(String username, String password) throws Exception{
+    public LoginWrapper login(String username, String password) {
         Map<String, Object> map = new HashMap<>();
         LoginWrapper wrapper = new LoginWrapper();
         boolean flag = checkInfo(username, password, map);

@@ -47,20 +47,13 @@ public class LoginController {
                  @RequestParam("password") String password, HttpSession session){
         LoginWrapper wrapper = null;
         JSONObject json = new JSONObject();
-        try {
-            wrapper = loginService.login(username, password);
-            if(wrapper.getObject() != null){
-                session.setAttribute("user", (User)wrapper.getObject());
-            }
-            json.put("code", wrapper.getCode());
-            json.put("result", wrapper.getResult());
-            json.put("message", wrapper.getMessage());
-        } catch (Exception e) {
-            e.printStackTrace();
-            json.put("code", CodeUtil.EXCEPTION.getCode());
-            json.put("result", CodeUtil.EXCEPTION.getResult());
-            json.put("message", "访问异常");
+        wrapper = loginService.login(username, password);
+        if(wrapper.getObject() != null){
+            session.setAttribute("user", (User)wrapper.getObject());
         }
+        json.put("code", wrapper.getCode());
+        json.put("result", wrapper.getResult());
+        json.put("message", wrapper.getMessage());
         return json;
     }
 
@@ -70,11 +63,7 @@ public class LoginController {
      * 实现用户的登出
      */
     @RequestMapping(path = {"/logout"}, method = {RequestMethod.GET, RequestMethod.POST})
-    public void logout(HttpSession session, HttpServletResponse response){
-        try {
-            response.sendRedirect("/login");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void logout(HttpSession session, HttpServletResponse response) throws IOException {
+        response.sendRedirect("/login");
     }
 }
