@@ -52,4 +52,9 @@ CREATE TABLE `cart` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
+DROP TABLE IF EXISTS `uuid`;
+CREATE TABLE `uuid` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(256) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

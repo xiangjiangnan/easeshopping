@@ -1,6 +1,7 @@
 package com.netease.easeshopping.service.impl;
 
 import com.netease.easeshopping.dao.CommodityMapper;
+import com.netease.easeshopping.dao.UuidMapper;
 import com.netease.easeshopping.model.Commodity;
 import com.netease.easeshopping.service.CommodityService;
 import com.netease.easeshopping.service.SellerService;
@@ -17,11 +18,14 @@ public class SellerServiceImpl implements SellerService {
     @Autowired
     private CommodityService commodityService;
 
+    @Autowired
+    private UuidMapper uuidMapper;
+
     @Override
     public Commodity submit(String title, String summary, String image, String detail,
                             String price){
         Commodity commodity = new Commodity();
-        String cid = UuidUtil.generate();//生成商品唯一id
+        String cid = new UuidUtil(uuidMapper).generate();//生成商品唯一id
         commodity.setCid(cid);
         commodity.setTitle(title);
         commodity.setRemark(summary);
