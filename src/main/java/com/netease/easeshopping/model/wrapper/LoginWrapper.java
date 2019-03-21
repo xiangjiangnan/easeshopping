@@ -1,4 +1,4 @@
-package com.netease.easeshopping.model;
+package com.netease.easeshopping.model.wrapper;
 
 public class LoginWrapper {
     private int code;

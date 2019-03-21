@@ -3,6 +3,7 @@ package com.netease.easeshopping.service.impl;
 import com.netease.easeshopping.dao.AccountMapper;
 import com.netease.easeshopping.dao.CartMapper;
 import com.netease.easeshopping.model.*;
+import com.netease.easeshopping.model.wrapper.AccountWrapper;
 import com.netease.easeshopping.service.BuyerService;
 import com.netease.easeshopping.utils.CodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;

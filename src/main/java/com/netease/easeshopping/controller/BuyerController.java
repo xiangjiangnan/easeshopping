@@ -3,12 +3,14 @@ package com.netease.easeshopping.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.netease.easeshopping.configuration.resolver.JsonParam;
 import com.netease.easeshopping.model.Account;
 import com.netease.easeshopping.model.Cart;
 import com.netease.easeshopping.model.Commodity;
 import com.netease.easeshopping.service.BuyerService;
 import com.netease.easeshopping.service.CommodityService;
 import com.netease.easeshopping.utils.CodeUtil;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -73,17 +75,19 @@ public class BuyerController {
     @RequestMapping(path = {"/api/buy"}, method = {RequestMethod.POST})
     @ResponseBody
     public JSONObject buy(Model model, HttpServletRequest request){
-        StringBuffer msg = new StringBuffer();
-        String lineString  = null;
-        try {
-            BufferedReader reader = request.getReader();
-            while((lineString = reader.readLine()) != null){
-                msg.append(lineString);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        JSONArray jsonArray = JSON.parseArray(msg.toString());
+//        StringBuffer msg = new StringBuffer();
+//        String lineString  = null;
+//        try {
+//            BufferedReader reader = request.getReader();
+//            while((lineString = reader.readLine()) != null){
+//                msg.append(lineString);
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
+//        JSONArray jsonArray = JSON.parseArray((String)msg);
+        JSONArray jsonArray = getRequestBody(request);
         for(int i = 0; i < jsonArray.size(); i++){
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             int id = Integer.valueOf(jsonObject.getString("id"));
@@ -99,5 +103,16 @@ public class BuyerController {
         json.put("result", CodeUtil.SUCCESS.getResult());
         json.put("message", "buy ok");
         return json;
+    }
+
+    private JSONArray getRequestBody(HttpServletRequest servletRequest) {
+        String jsonBody = null;
+        try {
+            jsonBody = IOUtils.toString(servletRequest.getInputStream(), "utf-8");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        JSONArray jsonArray = JSON.parseArray(jsonBody);
+        return jsonArray;
     }
 }

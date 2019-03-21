@@ -1,11 +1,10 @@
 package com.netease.easeshopping.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.netease.easeshopping.model.LoginWrapper;
+import com.netease.easeshopping.model.wrapper.LoginWrapper;
 import com.netease.easeshopping.model.User;
 import com.netease.easeshopping.service.CommodityService;
 import com.netease.easeshopping.service.LoginService;
-import com.netease.easeshopping.utils.CodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

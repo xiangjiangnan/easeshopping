@@ -1,6 +1,7 @@
 package com.netease.easeshopping.service;
 
 import com.netease.easeshopping.model.*;
+import com.netease.easeshopping.model.wrapper.AccountWrapper;
 
 import java.util.List;
 

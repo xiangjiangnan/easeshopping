@@ -1,7 +1,7 @@
 package com.netease.easeshopping.service.impl;
 
 import com.netease.easeshopping.dao.UserMapper;
-import com.netease.easeshopping.model.LoginWrapper;
+import com.netease.easeshopping.model.wrapper.LoginWrapper;
 import com.netease.easeshopping.model.User;
 import com.netease.easeshopping.service.LoginService;
 import com.netease.easeshopping.utils.CodeUtil;

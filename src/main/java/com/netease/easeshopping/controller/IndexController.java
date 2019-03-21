@@ -1,7 +1,7 @@
 package com.netease.easeshopping.controller;
 
 
-import com.netease.easeshopping.model.AccountWrapper;
+import com.netease.easeshopping.model.wrapper.AccountWrapper;
 import com.netease.easeshopping.model.Commodity;
 import com.netease.easeshopping.service.BuyerService;
 import com.netease.easeshopping.service.CommodityService;
